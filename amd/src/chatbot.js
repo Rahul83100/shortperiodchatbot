@@ -1,6 +1,16 @@
 define(['jquery'], function ($) {
     return {
         init: function (courseId, canUpload) {
+            // Configuration: Change this URL to point to your backend API
+            const BACKEND_URL = "http://127.0.0.1:8001";
+
+            // Session Tracking: Generate or retrieve a unique session ID
+            let sessionId = sessionStorage.getItem('chatbot_session_id');
+            if (!sessionId) {
+                sessionId = 'session_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+                sessionStorage.setItem('chatbot_session_id', sessionId);
+            }
+
             // Use provided courseId, default to 0
             courseId = courseId || 0;
             canUpload = canUpload || false;
@@ -74,7 +84,7 @@ define(['jquery'], function ($) {
                     formData.append("file", file);
 
                     try {
-                        const res = await fetch("http://127.0.0.1:8001/api/upload", {
+                        const res = await fetch(`${BACKEND_URL}/api/upload`, {
                             method: "POST",
                             body: formData
                         });
@@ -108,14 +118,15 @@ define(['jquery'], function ($) {
 
                 try {
                     // Call Local Backend
-                    const res = await fetch("http://127.0.0.1:8001/api/chat", {
+                    const res = await fetch(`${BACKEND_URL}/api/chat`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
                         },
                         body: JSON.stringify({
                             question: q,
-                            index_id: courseId // Dynamic Course ID
+                            index_id: courseId, // Dynamic Course ID
+                            session_id: sessionId
                         })
                     });
 
@@ -129,7 +140,7 @@ define(['jquery'], function ($) {
                 } catch (e) {
                     console.error(e);
                     loadingMsg.remove();
-                    addMessage("❌ Error connecting to bot backend. Is it running on port 8000?", "bot");
+                    addMessage(`❌ Error connecting to bot backend. Is it running on ${BACKEND_URL}?`, "bot");
                 }
             };
 
