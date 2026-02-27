@@ -2,7 +2,7 @@ define(['jquery'], function ($) {
     return {
         init: function (courseId, canUpload) {
             // Configuration: Change this URL to point to your backend API
-            const BACKEND_URL = "http://127.0.0.1:8001";
+            const BACKEND_URL = "https://wvbsp0l3-8001.inc1.devtunnels.ms";
 
             // Session Tracking: Generate or retrieve a unique session ID
             let sessionId = sessionStorage.getItem('chatbot_session_id');
