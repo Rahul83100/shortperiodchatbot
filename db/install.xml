@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<XMLDB PATH="local/chatbot/db" VERSION="20260225" COMMENT="XMLDB file for Moodle local/chatbot"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
   <TABLES>
     <TABLE NAME="local_chatbot_sync" COMMENT="Tracks which files have been synced to the vector database">
       <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Sequence ID"/>
         <FIELD NAME="filehash" TYPE="char" LENGTH="40" NOTNULL="true" COMMENT="Content hash of the file"/>
         <FIELD NAME="pathnamehash" TYPE="char" LENGTH="40" NOTNULL="true" COMMENT="Pathname hash of the file instance"/>
         <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="ID of the course this file belongs to"/>
